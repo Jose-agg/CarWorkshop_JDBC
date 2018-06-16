@@ -51,7 +51,7 @@ public class CreateInvoiceFor {
 		} catch (SQLException e) {
 			try {
 				connection.rollback();
-			} catch (SQLException ex) {
+			} catch (SQLException e2) {
 			}
 
 			throw new RuntimeException();
@@ -102,13 +102,18 @@ public class CreateInvoiceFor {
 		return facturasGateway.getLastInvoiceNumber();
 	}
 
-	private double calcularImportesAverias(List<Map<String, Object>> averias) {
+	private double calcularImportesAverias(List<Map<String, Object>> averias) throws BusinessException {
 		double totalFactura = 0.0;
 		for (Map<String, Object> averia : averias) {
 			Long idAveria = (Long) averia.get("id");
 
 			double importeManoObra = averiasGateway.consultaImporteManoObra(idAveria);
 			double importeRepuestos = averiasGateway.consultaImporteRepuestos(idAveria);
+
+			if (importeManoObra < 0) {
+				throw new BusinessException("La averia no se puede facturar");
+			}
+
 			double totalAveria = importeManoObra + importeRepuestos;
 
 			averia.replace("importe", totalAveria);

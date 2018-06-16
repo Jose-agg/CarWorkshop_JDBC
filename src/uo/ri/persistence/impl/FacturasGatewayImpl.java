@@ -45,7 +45,7 @@ public class FacturasGatewayImpl implements FacturasGateway {
 		PreparedStatement pst = null;
 		try {
 			pst = connection.prepareStatement(Conf.get("SQL_INSERTAR_FACTURA"));
-			long numeroFactura = (long) mapa.get("numero");
+			long numeroFactura = (long) mapa.get("numeroFactura");
 			pst.setLong(1, numeroFactura);
 			pst.setDate(2, new java.sql.Date(((java.util.Date) mapa.get("fechaFactura")).getTime()));
 			pst.setDouble(3, (double) mapa.get("iva"));

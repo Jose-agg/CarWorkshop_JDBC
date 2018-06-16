@@ -61,7 +61,11 @@ public class AveriasGatewayImpl implements AveriasGateway {
 			pst.setLong(1, idAveria);
 
 			rs = pst.executeQuery();
-			return rs.getDouble(1);
+			if (rs.next()) {
+				return rs.getDouble(1);
+			} else {
+				return -1;
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -80,7 +84,7 @@ public class AveriasGatewayImpl implements AveriasGateway {
 			pst.setLong(1, idAveria);
 
 			rs = pst.executeQuery();
-			if (rs.next() == false) {
+			if (!rs.next()) {
 				return 0.0; // La averia puede no tener repuestos
 			}
 

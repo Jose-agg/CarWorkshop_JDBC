@@ -10,7 +10,8 @@ import uo.ri.common.BusinessException;
 public class CashServiceImpl implements CashService {
 
 	@Override
-	public Map<String, Object> createInvoiceFor(List<Long> idsAveria) throws BusinessException {
+	public Map<String, Object> createInvoiceFor(List<Long> idsAveria)
+			throws BusinessException {
 		CreateInvoiceFor createInvoiceFor = new CreateInvoiceFor(idsAveria);
 		return createInvoiceFor.execute();
 	}

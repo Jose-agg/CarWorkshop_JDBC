@@ -1,10 +1,10 @@
 package uo.ri.ui.admin;
 
-import uo.ri.ui.admin.action.AddMechanicAction;
-import uo.ri.ui.admin.action.DeleteMechanicAction;
-import uo.ri.ui.admin.action.ListMechanicsAction;
-import uo.ri.ui.admin.action.UpdateMechanicAction;
 import alb.util.menu.BaseMenu;
+import uo.ri.ui.admin.action.mecanicos.AddMechanicAction;
+import uo.ri.ui.admin.action.mecanicos.DeleteMechanicAction;
+import uo.ri.ui.admin.action.mecanicos.ListMechanicsAction;
+import uo.ri.ui.admin.action.mecanicos.UpdateMechanicAction;
 
 public class MecanicosMenu extends BaseMenu {
 

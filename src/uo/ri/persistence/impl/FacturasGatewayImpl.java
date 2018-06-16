@@ -10,6 +10,13 @@ import alb.util.jdbc.Jdbc;
 import uo.ri.conf.Conf;
 import uo.ri.persistence.FacturasGateway;
 
+/**
+ * Clase que se encarga de gestionar la persistencia de 
+ * la entidad Facturas
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class FacturasGatewayImpl implements FacturasGateway {
 
 	private Connection connection;
@@ -25,7 +32,8 @@ public class FacturasGatewayImpl implements FacturasGateway {
 		ResultSet rs = null;
 
 		try {
-			pst = connection.prepareStatement(Conf.get("SQL_ULTIMO_NUMERO_FACTURA"));
+			pst = connection
+					.prepareStatement(Conf.get("SQL_ULTIMO_NUMERO_FACTURA"));
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
@@ -47,14 +55,15 @@ public class FacturasGatewayImpl implements FacturasGateway {
 			pst = connection.prepareStatement(Conf.get("SQL_INSERTAR_FACTURA"));
 			long numeroFactura = (long) mapa.get("numeroFactura");
 			pst.setLong(1, numeroFactura);
-			pst.setDate(2, new java.sql.Date(((java.util.Date) mapa.get("fechaFactura")).getTime()));
+			pst.setDate(2, new java.sql.Date(
+					((java.util.Date) mapa.get("fechaFactura")).getTime()));
 			pst.setDouble(3, (double) mapa.get("iva"));
 			pst.setDouble(4, (double) mapa.get("totalConIva"));
 			pst.setString(5, "SIN_ABONAR");
 
 			pst.executeUpdate();
 
-			return getGeneratedKey(numeroFactura); // Id de la nueva factura generada
+			return getGeneratedKey(numeroFactura); // Id de la nueva factura
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -68,7 +77,8 @@ public class FacturasGatewayImpl implements FacturasGateway {
 		ResultSet rs = null;
 
 		try {
-			pst = connection.prepareStatement(Conf.get("SQL_RECUPERAR_CLAVE_GENERADA"));
+			pst = connection
+					.prepareStatement(Conf.get("SQL_RECUPERAR_CLAVE_GENERADA"));
 			pst.setLong(1, numeroFactura);
 			rs = pst.executeQuery();
 			rs.next();

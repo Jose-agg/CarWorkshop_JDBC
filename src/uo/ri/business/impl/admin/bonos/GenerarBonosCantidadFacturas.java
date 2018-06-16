@@ -1,36 +1,28 @@
-package uo.ri.business.impl.admin;
+package uo.ri.business.impl.admin.bonos;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import alb.util.jdbc.Jdbc;
+import uo.ri.common.BusinessException;
 import uo.ri.conf.PersistenceFactory;
-import uo.ri.persistence.MecanicosGateway;
+import uo.ri.persistence.BonosGateway;
 
-public class AddMechanic {
-
-	private String nombre;
-	private String apellidos;
-
+public class GenerarBonosCantidadFacturas {
 	private Connection connection;
-	private MecanicosGateway mecanicosGateway;
-
-	public AddMechanic(String nombre, String apellidos) {
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-	}
+	private BonosGateway bonosGateway;
 
 	private void prepareDB() throws SQLException {
 		this.connection = Jdbc.getConnection();
 		connection.setAutoCommit(false);
-		mecanicosGateway = PersistenceFactory.getMecanicosGateway();
-		mecanicosGateway.setConnection(connection);
+		bonosGateway = PersistenceFactory.getBonosGateway();
+		bonosGateway.setConnection(connection);
 	}
 
-	public void execute() {
+	public void execute() throws BusinessException {
 		try {
 			prepareDB();
-			mecanicosGateway.addMechanic(nombre, apellidos);
+			bonosGateway.generarBonosCantidadFacturas();
 			connection.commit();
 
 		} catch (SQLException e) {

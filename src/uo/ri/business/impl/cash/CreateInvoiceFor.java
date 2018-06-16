@@ -62,7 +62,8 @@ public class CreateInvoiceFor {
 		return mapa;
 	}
 
-	private List<Map<String, Object>> verificarAveriasTerminadas() throws SQLException, BusinessException {
+	private List<Map<String, Object>> verificarAveriasTerminadas()
+			throws SQLException, BusinessException {
 		List<Map<String, Object>> lista = new ArrayList<>();
 		for (Long id : idsAveria) {
 			Map<String, Object> map = averiasGateway.findByID(id);
@@ -71,7 +72,8 @@ public class CreateInvoiceFor {
 			} else {
 				String status = (String) map.get("status");
 				if (!"TERMINADA".equalsIgnoreCase(status)) {
-					throw new BusinessException("No está terminada la avería:" + id);
+					throw new BusinessException(
+							"No está terminada la avería:" + id);
 				}
 				lista.add(map);
 			}
@@ -79,7 +81,8 @@ public class CreateInvoiceFor {
 		return lista;
 	}
 
-	private Map<String, Object> generarFactura(List<Map<String, Object>> averias)
+	private Map<String, Object> generarFactura(
+			List<Map<String, Object>> averias)
 			throws SQLException, BusinessException {
 		Map<String, Object> mapa = new HashMap<String, Object>();
 
@@ -102,13 +105,16 @@ public class CreateInvoiceFor {
 		return facturasGateway.getLastInvoiceNumber();
 	}
 
-	private double calcularImportesAverias(List<Map<String, Object>> averias) throws BusinessException {
+	private double calcularImportesAverias(List<Map<String, Object>> averias)
+			throws BusinessException {
 		double totalFactura = 0.0;
 		for (Map<String, Object> averia : averias) {
 			Long idAveria = (Long) averia.get("id");
 
-			double importeManoObra = averiasGateway.consultaImporteManoObra(idAveria);
-			double importeRepuestos = averiasGateway.consultaImporteRepuestos(idAveria);
+			double importeManoObra = averiasGateway
+					.consultaImporteManoObra(idAveria);
+			double importeRepuestos = averiasGateway
+					.consultaImporteRepuestos(idAveria);
 
 			if (importeManoObra < 0) {
 				throw new BusinessException("La averia no se puede facturar");
@@ -123,7 +129,8 @@ public class CreateInvoiceFor {
 		return Round.twoCents(totalFactura);
 	}
 
-	private void actualizarAverias(List<Map<String, Object>> averias, long idFactura) throws SQLException {
+	private void actualizarAverias(List<Map<String, Object>> averias,
+			long idFactura) throws SQLException {
 		for (Map<String, Object> averia : averias) {
 			Long idAveria = (Long) averia.get("id");
 			averia.replace("factura_id", idFactura);
@@ -133,6 +140,7 @@ public class CreateInvoiceFor {
 	}
 
 	private double porcentajeIva(double totalFactura, Date fechaFactura) {
-		return DateUtil.fromString("1/7/2012").before(fechaFactura) ? 21.0 : 18.0;
+		return DateUtil.fromString("1/7/2012").before(fechaFactura) ? 21.0
+				: 18.0;
 	}
 }

@@ -6,6 +6,7 @@ import uo.ri.business.ForemanService;
 import uo.ri.business.MechanicService;
 import uo.ri.business.impl.AdminServiceImpl;
 import uo.ri.business.impl.CashServiceImpl;
+import uo.ri.business.impl.ForemanServiceImpl;
 
 /**
  * Clase resultante de aplicar el patron factoría que permite 
@@ -39,7 +40,12 @@ public class ServicesFactory {
 		return null;
 	}
 
+	/**
+	 * Devuelve un instancia del servicio de jefe de taller
+	 * 
+	 * @return Instancia del servicio de jefe de taller
+	 */
 	public static ForemanService getForemanService() {
-		return null;
+		return new ForemanServiceImpl();
 	}
 }

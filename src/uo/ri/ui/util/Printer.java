@@ -44,4 +44,40 @@ public class Printer {
 				"Generados los bonos para las facturas superiores a 500€");
 	}
 
+	public static void printAddClient() {
+		Console.println("Nuevo cliente añadido");
+	}
+
+	public static void printDeleteClient() {
+		Console.println("Se ha eliminado el cliente");
+	}
+
+	public static void printDetailClient(Map<String, Object> mapa) {
+		Console.println("Estos son los detalles del cliente");
+		for (Map.Entry<String, Object> dato : mapa.entrySet()) {
+			Console.println(dato.getKey() + " - " + dato.getValue());
+		}
+	}
+
+	public static void printListClients(List<Map<String, Object>> list) {
+		Console.println("\nListado de clientes\n");
+		for (Map<String, Object> mapa : list) {
+			for (Map.Entry<String, Object> dato : mapa.entrySet()) {
+				Console.println(dato.getKey() + " - " + dato.getValue());
+			}
+			Console.println();
+		}
+	}
+
+	public static void printListClientRecomendations(Map<String, Object> mapa) {
+		Console.println("\nListado de recomendaciones\n");
+		for (Map.Entry<String, Object> dato : mapa.entrySet()) {
+			Console.println(dato.getKey() + " - " + dato.getValue());
+		}
+	}
+
+	public static void printUpdateClient() {
+		Console.println("Cliente actualizado");
+	}
+
 }

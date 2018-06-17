@@ -5,12 +5,14 @@ import uo.ri.persistence.BonosGateway;
 import uo.ri.persistence.ClientesGateway;
 import uo.ri.persistence.FacturasGateway;
 import uo.ri.persistence.MecanicosGateway;
+import uo.ri.persistence.MediosPagoGateway;
 import uo.ri.persistence.VehiculosGateway;
 import uo.ri.persistence.impl.AveriasGatewayImpl;
 import uo.ri.persistence.impl.BonosGatewayImpl;
 import uo.ri.persistence.impl.ClientesGatewayImpl;
 import uo.ri.persistence.impl.FacturasGatewayImpl;
 import uo.ri.persistence.impl.MecanicosGatewayImpl;
+import uo.ri.persistence.impl.MediosPagoGatewayImpl;
 import uo.ri.persistence.impl.VehiculosGatewayImpl;
 
 public class PersistenceFactory {
@@ -37,5 +39,9 @@ public class PersistenceFactory {
 
 	public static VehiculosGateway getVehiculosGateway() {
 		return new VehiculosGatewayImpl();
+	}
+
+	public static MediosPagoGateway getMediosPagoGateway() {
+		return new MediosPagoGatewayImpl();
 	}
 }

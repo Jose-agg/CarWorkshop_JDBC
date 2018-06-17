@@ -70,7 +70,7 @@ public interface AveriasGateway {
 	 * Metodo que actualizada la propiedad usada_bono de una averia, declarando
 	 * así que esta averia ya ha sido utilizada.
 	 * 
-	 * @param long1
+	 * @param idAveria
 	 */
 	public void actualizarAveriaUsadaBono(Long idAveria);
 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import alb.util.jdbc.Jdbc;
@@ -84,6 +86,48 @@ public class FacturasGatewayImpl implements FacturasGateway {
 			rs.next();
 
 			return rs.getLong(1);
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+	}
+
+	@Override
+	public List<Long> getFacturasPorClienteImporte500NoUsadas(Long cliente) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		List<Long> list = new ArrayList<Long>();
+
+		try {
+			pst = connection
+					.prepareStatement(Conf.get("SQL_FIND_FACTURAS_NO_USADAS"));
+			pst.setLong(1, cliente);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getLong(1));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return list;
+	}
+
+	@Override
+	public void actualizarFacturaUsadaBono(Long factura) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			pst = connection.prepareStatement(
+					Conf.get("SQL_UPDATE_FACTURA_USADA_BONO"));
+			pst.setLong(1, factura);
+
+			pst.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

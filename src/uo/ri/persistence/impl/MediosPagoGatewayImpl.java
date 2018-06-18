@@ -49,5 +49,4 @@ public class MediosPagoGatewayImpl implements MediosPagoGateway {
 			Jdbc.close(pst);
 		}
 	}
-
 }

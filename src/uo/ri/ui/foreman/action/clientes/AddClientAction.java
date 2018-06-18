@@ -7,6 +7,12 @@ import uo.ri.common.BusinessException;
 import uo.ri.conf.ServicesFactory;
 import uo.ri.ui.util.Printer;
 
+/**
+ * Interacción con el usuario para la creación de un nuevo Cliente
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class AddClientAction implements Action {
 
 	@Override

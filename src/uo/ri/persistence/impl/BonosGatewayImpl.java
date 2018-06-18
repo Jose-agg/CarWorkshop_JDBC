@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import alb.util.jdbc.Jdbc;
 import uo.ri.conf.Conf;
@@ -67,6 +71,36 @@ public class BonosGatewayImpl implements BonosGateway {
 		} finally {
 			Jdbc.close(rs, pst);
 		}
+	}
+
+	@Override
+	public List<Map<String, Object>> findBonosCliente(Long idCliente) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Map<String, Object>> bonos = new ArrayList<Map<String, Object>>();
+		Map<String, Object> mapa = null;
+
+		try {
+			ps = connection.prepareStatement(Conf.get("SQL_BONOS_CLIENT"));
+			ps.setLong(1, idCliente);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				mapa = new HashMap<String, Object>();
+				mapa.put("tipo", "Bono"); // Para diferenciar el mapa de la 
+											// informacion agregada
+				mapa.put("codigo", rs.getString("codigo"));
+				mapa.put("descripcion", rs.getString("descripcion"));
+				mapa.put("disponible", rs.getDouble("disponible"));
+				mapa.put("acumulado", rs.getDouble("acumulado"));
+				bonos.add(mapa);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		} finally {
+			Jdbc.close(rs, ps);
+		}
+		return bonos;
 	}
 
 }

@@ -9,6 +9,13 @@ import uo.ri.common.BusinessException;
 import uo.ri.conf.ServicesFactory;
 import uo.ri.ui.util.Printer;
 
+/**
+ * Interacción con el usuario para listar los usuarios que ha recomendado un 
+ * cliente
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class ListClientRecomendationsAction implements Action {
 
 	@Override

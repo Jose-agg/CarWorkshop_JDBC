@@ -1,6 +1,8 @@
 package uo.ri.persistence;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Interfaz que declara los métodos que serán implementados por la clase de
@@ -36,5 +38,13 @@ public interface BonosGateway {
 	 */
 	public void insertarBonosMedioPago(String code, int cantidad, Long cliente,
 			String descripcion);
+
+	/**
+	 * Metodo que devuelve una lista con todos los bonos de un cliente
+	 * 
+	 * @param idCliente Identificador del cliente a buscar
+	 * @return lista de bonos del cliente
+	 */
+	public List<Map<String, Object>> findBonosCliente(Long idCliente);
 
 }

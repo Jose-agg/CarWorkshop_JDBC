@@ -7,7 +7,7 @@ import uo.ri.common.BusinessException;
 
 /**
  * Interfaz que declara los métodos que serán implementados por la clase de
- * logica asociada al jefe de taller (ForemanGatewayImpl)
+ * logica asociada al jefe de taller (ForemanServiceImpl)
  * 
  * @author José Antonio García García
  */

@@ -97,4 +97,44 @@ public class Printer {
 		Console.println("Cliente actualizado");
 	}
 
+	public static void printMostrarDetallesBonosCliente(
+			List<Map<String, Object>> listaBonos) {
+		Console.println();
+		Console.println("\nListado de bonos\n");
+		for (Map<String, Object> mapa : listaBonos) {
+			if (mapa.get("tipo") != "InfoAgregada") {
+				Console.printf("Codigo: %s\n", mapa.get("codigo"));
+				Console.printf("Descripcion: %s\n", mapa.get("descripcion"));
+				Console.printf("Importe disponible: %.2f€\n",
+						mapa.get("disponible"));
+				Console.printf("Importe acumulado: %.2f€\n",
+						mapa.get("acumulado"));
+				Console.println("-----------------------");
+			} else {
+				Console.println("\nInformacion Agregada\n");
+				Console.printf("Numero de bonos: %d\n", mapa.get("numBonos"));
+				Console.printf("Importe total: %.2f€\n", mapa.get("total"));
+				Console.printf("Importe consumido: %.2f€\n",
+						mapa.get("consumido"));
+				Console.printf("Importe restante: %.2f€\n",
+						mapa.get("restante"));
+			}
+		}
+
+	}
+
+	public static void printListarResumenBonos(
+			List<Map<String, Object>> listaClientes) {
+		Console.println();
+		Console.println("\nListado de clientes y bonos\n");
+		for (Map<String, Object> mapa : listaClientes) {
+			Console.printf("DNI: %s\n", mapa.get("dni"));
+			Console.printf("Nombre: %s\n", mapa.get("nombre"));
+			Console.printf("Numero de bonos: %d\n", mapa.get("numBonos"));
+			Console.printf("Importe total: %.2f€\n", mapa.get("total"));
+			Console.printf("Importe consumido: %.2f€\n", mapa.get("consumido"));
+			Console.printf("Importe restante: %.2f€\n", mapa.get("restante"));
+			Console.println("-----------------------");
+		}
+	}
 }

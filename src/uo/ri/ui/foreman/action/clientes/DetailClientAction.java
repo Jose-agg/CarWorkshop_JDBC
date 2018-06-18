@@ -9,6 +9,12 @@ import uo.ri.common.BusinessException;
 import uo.ri.conf.ServicesFactory;
 import uo.ri.ui.util.Printer;
 
+/**
+ * Interacción con el usuario para mostrar los detalles de un cliente
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class DetailClientAction implements Action {
 
 	@Override

@@ -6,6 +6,8 @@ import java.util.Map;
 import uo.ri.business.AdminService;
 import uo.ri.business.impl.admin.bonos.GenerarBonosCantidadFacturas;
 import uo.ri.business.impl.admin.bonos.GenerarBonosNumeroAverias;
+import uo.ri.business.impl.admin.bonos.ListarResumenBonos;
+import uo.ri.business.impl.admin.bonos.MostrarDetallesBonoCliente;
 import uo.ri.business.impl.admin.mecanicos.AddMechanic;
 import uo.ri.business.impl.admin.mecanicos.DeleteMechanic;
 import uo.ri.business.impl.admin.mecanicos.FindAllMechanics;
@@ -52,6 +54,21 @@ public class AdminServiceImpl implements AdminService {
 	public void generarBonosCantidadFacturas() throws BusinessException {
 		GenerarBonosCantidadFacturas bonosCantidadFacturas = new GenerarBonosCantidadFacturas();
 		bonosCantidadFacturas.execute();
+	}
+
+	@Override
+	public List<Map<String, Object>> mostrarDetallesBonoCliente(
+			String idCliente) throws BusinessException {
+		MostrarDetallesBonoCliente mostrarDetallesBonoCliente = new MostrarDetallesBonoCliente(
+				idCliente);
+		return mostrarDetallesBonoCliente.execute();
+	}
+
+	@Override
+	public List<Map<String, Object>> listarResumenBonos()
+			throws BusinessException {
+		ListarResumenBonos listarResumenBonos = new ListarResumenBonos();
+		return listarResumenBonos.execute();
 	}
 
 }

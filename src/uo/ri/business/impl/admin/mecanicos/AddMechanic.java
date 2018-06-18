@@ -1,18 +1,25 @@
-package uo.ri.business.impl.admin;
+package uo.ri.business.impl.admin.mecanicos;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import alb.util.jdbc.Jdbc;
+import uo.ri.common.BusinessException;
 import uo.ri.conf.PersistenceFactory;
 import uo.ri.persistence.MecanicosGateway;
 
-public class FindAllMechanics {
+public class AddMechanic {
+
+	private String nombre;
+	private String apellidos;
 
 	private Connection connection;
 	private MecanicosGateway mecanicosGateway;
+
+	public AddMechanic(String nombre, String apellidos) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+	}
 
 	private void prepareDB() throws SQLException {
 		this.connection = Jdbc.getConnection();
@@ -21,11 +28,10 @@ public class FindAllMechanics {
 		mecanicosGateway.setConnection(connection);
 	}
 
-	public List<Map<String, Object>> execute() {
-		List<Map<String, Object>> list = null;
+	public void execute() throws BusinessException {
 		try {
 			prepareDB();
-			list = mecanicosGateway.findAllMechanics();
+			mecanicosGateway.addMechanic(nombre, apellidos);
 			connection.commit();
 
 		} catch (SQLException e) {
@@ -37,6 +43,5 @@ public class FindAllMechanics {
 		} finally {
 			Jdbc.close(connection);
 		}
-		return list;
 	}
 }

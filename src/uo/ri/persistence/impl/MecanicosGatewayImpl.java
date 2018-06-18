@@ -13,6 +13,13 @@ import alb.util.jdbc.Jdbc;
 import uo.ri.conf.Conf;
 import uo.ri.persistence.MecanicosGateway;
 
+/**
+ * Clase que se encarga de gestionar la persistencia de 
+ * la entidad Mecanicos
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class MecanicosGatewayImpl implements MecanicosGateway {
 
 	private Connection connection;
@@ -61,7 +68,8 @@ public class MecanicosGatewayImpl implements MecanicosGateway {
 	}
 
 	@Override
-	public void updateMechanic(Long idMecanico, String nombre, String apellidos) {
+	public void updateMechanic(Long idMecanico, String nombre,
+			String apellidos) {
 		// Procesar
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -89,7 +97,8 @@ public class MecanicosGatewayImpl implements MecanicosGateway {
 		Map<String, Object> map;
 
 		try {
-			pst = connection.prepareStatement(Conf.get("SQL_FIND_ALL_MECHANIC"));
+			pst = connection
+					.prepareStatement(Conf.get("SQL_FIND_ALL_MECHANIC"));
 
 			rs = pst.executeQuery();
 			while (rs.next()) {

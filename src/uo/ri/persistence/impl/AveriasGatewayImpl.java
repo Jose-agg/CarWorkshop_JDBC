@@ -4,13 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import alb.util.jdbc.Jdbc;
 import uo.ri.conf.Conf;
 import uo.ri.persistence.AveriasGateway;
 
+/**
+ * Clase que se encarga de gestionar la persistencia de 
+ * la entidad Averias
+ * 
+ * @author José Antonio García García
+ *
+ */
 public class AveriasGatewayImpl implements AveriasGateway {
 
 	private Connection connection;
@@ -57,11 +66,16 @@ public class AveriasGatewayImpl implements AveriasGateway {
 		ResultSet rs = null;
 
 		try {
-			pst = connection.prepareStatement(Conf.get("SQL_IMPORTE_MANO_OBRA"));
+			pst = connection
+					.prepareStatement(Conf.get("SQL_IMPORTE_MANO_OBRA"));
 			pst.setLong(1, idAveria);
 
 			rs = pst.executeQuery();
-			return rs.getDouble(1);
+			if (rs.next()) {
+				return rs.getDouble(1);
+			} else {
+				return -1;
+			}
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -76,11 +90,12 @@ public class AveriasGatewayImpl implements AveriasGateway {
 		ResultSet rs = null;
 
 		try {
-			pst = connection.prepareStatement(Conf.get("SQL_IMPORTE_REPUESTOS"));
+			pst = connection
+					.prepareStatement(Conf.get("SQL_IMPORTE_REPUESTOS"));
 			pst.setLong(1, idAveria);
 
 			rs = pst.executeQuery();
-			if (rs.next() == false) {
+			if (!rs.next()) {
 				return 0.0; // La averia puede no tener repuestos
 			}
 
@@ -108,6 +123,48 @@ public class AveriasGatewayImpl implements AveriasGateway {
 			throw new RuntimeException(e);
 		} finally {
 			Jdbc.close(ps);
+		}
+	}
+
+	@Override
+	public List<Long> getAveriasNoUsadas(Long vehiculo) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		List<Long> list = new ArrayList<Long>();
+
+		try {
+			pst = connection
+					.prepareStatement(Conf.get("SQL_FIND_AVERIAS_NO_USADAS"));
+			pst.setLong(1, vehiculo);
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(rs.getLong(1));
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return list;
+	}
+
+	@Override
+	public void actualizarAveriaUsadaBono(Long idAveria) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			pst = connection
+					.prepareStatement(Conf.get("SQL_UPDATE_AVERIA_USADA_BONO"));
+			pst.setLong(1, idAveria);
+
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
 		}
 	}
 

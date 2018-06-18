@@ -1,4 +1,4 @@
-package uo.ri.ui.admin.action;
+package uo.ri.ui.admin.action.mecanicos;
 
 import alb.util.console.Console;
 import alb.util.menu.Action;

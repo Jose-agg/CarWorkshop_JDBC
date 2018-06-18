@@ -1,9 +1,10 @@
-package uo.ri.business.impl.admin;
+package uo.ri.business.impl.admin.mecanicos;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import alb.util.jdbc.Jdbc;
+import uo.ri.common.BusinessException;
 import uo.ri.conf.PersistenceFactory;
 import uo.ri.persistence.MecanicosGateway;
 
@@ -29,7 +30,7 @@ public class UpdateMechanic {
 		mecanicosGateway.setConnection(connection);
 	}
 
-	public void execute() {
+	public void execute() throws BusinessException {
 		try {
 			prepareDB();
 			mecanicosGateway.updateMechanic(id, nombre, apellidos);

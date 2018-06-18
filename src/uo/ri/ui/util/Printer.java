@@ -137,4 +137,59 @@ public class Printer {
 			Console.println("-----------------------");
 		}
 	}
+
+	public static void printLiquidarFactura() {
+		Console.println();
+		Console.println("La factura ha sido abonada correctamente");
+	}
+
+	public static void printMediosPago(List<Map<String, Object>> mediosPago) {
+		Console.println("Medios de pago disponibles: ");
+		for (int i = 0; i < mediosPago.size(); i++)
+			Console.printf("%d) => %s\n", i + 1,
+					getInfoMedioPago(mediosPago.get(i)));
+	}
+
+	/**
+	 * Metodo auxiliar para imprimir los medios de pago
+	 * 
+	 * @param mapa Datos del medio de pago
+	 * @return datos del medio de pago formateados
+	 */
+	private static String getInfoMedioPago(Map<String, Object> medioPago) {
+		String tipo = (String) medioPago.get("dtype");
+		if (tipo.equals("TBonos"))
+			return String.format("Tipo: Bono --- Codigo: %s --- Disponible: %f",
+					medioPago.get("codigo"), medioPago.get("disponible"));
+		else if (tipo.equals("TTarjetasCredito"))
+			return String.format(
+					"Tipo: Tarjeta de Crédito --- Numero: %s --- Tipo: %s --- Validez: %s]",
+					medioPago.get("numero"), medioPago.get("tipo"),
+					medioPago.get("validez"));
+		else
+			return "Tipo: Metálico";
+	}
+
+	/**
+	 * Metodo que devuelve los diferentes mensajes que se necesitan para 
+	 * recaudar los distintos medios de pago de una factura.
+	 * 
+	 * Este metodo busca liberar a la interfaz de usuario de la mayor cantidad 
+	 * posible de texto.
+	 * 
+	 * @param codigo Codigo a mostrar por pantalla
+	 * @param object 
+	 */
+	public static void printRecaudarMediosPago(String codigo, Double extra) {
+		switch (codigo) {
+		case "Total":
+			Console.printf("Importe total: %.2f€\n", extra);
+			break;
+		case "Restante":
+			Console.printf("Falta por pagar: %.2f€\n\n", extra);
+			break;
+		default:
+			break;
+		}
+	}
 }

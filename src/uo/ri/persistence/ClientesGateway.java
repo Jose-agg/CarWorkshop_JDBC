@@ -123,4 +123,12 @@ public interface ClientesGateway {
 	 */
 	public void updateClient(Long idCliente, String nombre, String apellidos,
 			String zipcode, String telefono, String email);
+
+	/**
+	 * Metodo que devuelve el id de un cliente a partir del id de una factura
+	 * 
+	 * @param idFactura Identificador de la factura a buscar
+	 * @return identificador del cliente
+	 */
+	public Long findIdClienteByIdFactura(Long idFactura);
 }

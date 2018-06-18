@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -133,6 +134,54 @@ public class FacturasGatewayImpl implements FacturasGateway {
 			throw new RuntimeException(e);
 		} finally {
 			Jdbc.close(rs, pst);
+		}
+	}
+
+	@Override
+	public Map<String, Object> getDetallesFactura(Long numFactura) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Map<String, Object> mapa = null;
+
+		try {
+			pst = connection.prepareStatement(Conf.get("SQL_DETAILS_INVOICE"));
+			pst.setLong(1, numFactura);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				mapa = new HashMap<String, Object>();
+				mapa.put("id", rs.getLong("id"));
+				mapa.put("fecha", rs.getDate("fecha"));
+				mapa.put("importe", rs.getDouble("importe"));
+				mapa.put("iva", rs.getDouble("iva"));
+				mapa.put("numero", rs.getLong("numero"));
+				mapa.put("status", rs.getString("status"));
+				mapa.put("usada_bono", rs.getBoolean("usada_bono"));
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return mapa;
+	}
+
+	@Override
+	public void updateFacturaAbonada(Long idFactura) {
+		PreparedStatement pst = null;
+
+		try {
+			pst = connection
+					.prepareStatement(Conf.get("SQL_UPDATE_INVOICE_ABONADA"));
+			pst.setString(1, "ABONADA");
+			pst.setLong(2, idFactura);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(pst);
 		}
 	}
 

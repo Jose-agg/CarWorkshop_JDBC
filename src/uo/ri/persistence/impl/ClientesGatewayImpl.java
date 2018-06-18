@@ -265,4 +265,28 @@ public class ClientesGatewayImpl implements ClientesGateway {
 		}
 	}
 
+	@Override
+	public Long findIdClienteByIdFactura(Long idFactura) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Long idCliente = 0L;
+
+		try {
+			pst = connection.prepareStatement(
+					Conf.get("SQL_FIND_CLIENTE_ID_BY_ID_FACTURA"));
+			pst.setLong(1, idFactura);
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				idCliente = rs.getLong("cliente_id");
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return idCliente;
+	}
+
 }

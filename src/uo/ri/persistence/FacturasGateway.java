@@ -53,4 +53,20 @@ public interface FacturasGateway {
 	 */
 	public void actualizarFacturaUsadaBono(Long factura);
 
+	/**
+	 * Metodo que devuelve los datos de una factura
+	 * 
+	 * @param numFactura Numero de la factura a buscar
+	 * @return mapa con los datos de la factura. Si no encuentra una factura con
+	 * 			dicho numero devuelve null
+	 */
+	public Map<String, Object> getDetallesFactura(Long numFactura);
+
+	/**
+	 * Metodo que cambia el estado de una factura a ABONADA
+	 * 
+	 * @param idFactura Identificador de la factura
+	 */
+	public void updateFacturaAbonada(Long idFactura);
+
 }

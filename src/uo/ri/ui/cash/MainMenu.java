@@ -12,7 +12,7 @@ public class MainMenu extends BaseMenu {
 			{ "Buscar reparaciones no facturadas de un cliente", NotYetImplementedAction.class }, 
 			{ "Buscar reparación por matrícula", 	NotYetImplementedAction.class }, 
 			{ "Facturar reparaciones", 				FacturarReparacionesAction.class },
-			{ "Liquidar factura ", 					NotYetImplementedAction.class },
+			{ "Liquidar factura ", 					LiquidarFacturaAction.class },
 		};
 	}
 

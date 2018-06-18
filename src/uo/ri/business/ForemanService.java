@@ -72,7 +72,6 @@ public interface ForemanService {
 	 * Metodo encargado de actualizar los datos de un cliente del sistema
 	 * 
 	 * @param idCliente Identificador del cliente a modificar
-	 * @param dni Nuevo DNI del cliente
 	 * @param nombre Nuevo nombre del cliente
 	 * @param apellidos Nuevo apellidos del cliente
 	 * @param zipcode Nuevo zipcode del cliente
@@ -81,8 +80,8 @@ public interface ForemanService {
 	 * 
 	 * @throws BusinessException
 	 */
-	public void updateClient(String idCliente, String dni, String nombre,
-			String apellidos, String zipcode, String telefono, String email)
+	public void updateClient(String idCliente, String nombre, String apellidos,
+			String zipcode, String telefono, String email)
 			throws BusinessException;
 
 }

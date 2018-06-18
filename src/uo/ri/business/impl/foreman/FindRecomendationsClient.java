@@ -2,6 +2,7 @@ package uo.ri.business.impl.foreman;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import alb.util.jdbc.Jdbc;
@@ -18,7 +19,7 @@ public class FindRecomendationsClient {
 	private ClientesGateway clientesGateway;
 
 	public FindRecomendationsClient(String idCliente) {
-		// TODO Auto-generated constructor stub
+		this.StringIdCliente = idCliente;
 	}
 
 	private void prepareDB() throws SQLException {
@@ -29,10 +30,11 @@ public class FindRecomendationsClient {
 	}
 
 	public Map<String, Object> execute() throws BusinessException {
+		Map<String, Object> mapa = new HashMap<String, Object>();
 		try {
 			prepareDB();
 			comprobarIdCliente(StringIdCliente);
-
+			mapa = clientesGateway.findRecomendedClients(idCliente);
 			connection.commit();
 
 		} catch (SQLException e) {
@@ -44,6 +46,7 @@ public class FindRecomendationsClient {
 		} finally {
 			Jdbc.close(connection);
 		}
+		return mapa;
 	}
 
 	/**

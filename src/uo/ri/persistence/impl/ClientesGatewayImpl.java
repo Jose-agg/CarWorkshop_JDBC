@@ -190,4 +190,79 @@ public class ClientesGatewayImpl implements ClientesGateway {
 		}
 	}
 
+	@Override
+	public List<Map<String, Object>> findAllClients() {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		List<Map<String, Object>> lista = new ArrayList<Map<String, Object>>();
+		Map<String, Object> mapa = null;
+
+		try {
+			pst = connection.prepareStatement(Conf.get("SQL_FIND_ALL_CLIENTS"));
+			rs = pst.executeQuery();
+
+			while (rs.next()) {
+				mapa = new HashMap<String, Object>();
+				mapa.put("dni", rs.getString("dni"));
+				mapa.put("nombre", rs.getString("nombre"));
+				mapa.put("apellidos", rs.getString("apellidos"));
+				mapa.put("id", rs.getLong("id"));
+				lista.add(mapa);
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return lista;
+	}
+
+	@Override
+	public Map<String, Object> findRecomendedClients(Long idCliente) {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Map<String, Object> mapa = new HashMap<String, Object>();
+
+		try {
+			pst = connection.prepareStatement(
+					Conf.get("SQL_FIND_ALL_RECOMENDED_CLIENTS"));
+			pst.setLong(1, idCliente);
+			rs = pst.executeQuery();
+			int contador = 1;
+			while (rs.next()) {
+				mapa.put("usuario" + contador, rs.getString("nombre") + " - "
+						+ rs.getString("apellidos") + " - " + rs.getLong("id"));
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return mapa;
+	}
+
+	@Override
+	public void updateClient(Long idCliente, String nombre, String apellidos,
+			String zipcode, String telefono, String email) {
+		PreparedStatement pst = null;
+
+		try {
+			pst = connection.prepareStatement(Conf.get("SQL_UPDATE_CLIENT"));
+			pst.setString(1, nombre);
+			pst.setString(2, apellidos);
+			pst.setString(3, zipcode);
+			pst.setString(4, telefono);
+			pst.setString(5, email);
+			pst.setLong(6, idCliente);
+			pst.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			Jdbc.close(pst);
+		}
+	}
+
 }

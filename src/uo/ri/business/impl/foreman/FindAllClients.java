@@ -23,9 +23,10 @@ public class FindAllClients {
 	}
 
 	public List<Map<String, Object>> execute() throws BusinessException {
+		List<Map<String, Object>> lista = null;
 		try {
 			prepareDB();
-
+			lista = clientesGateway.findAllClients();
 			connection.commit();
 
 		} catch (SQLException e) {
@@ -37,5 +38,6 @@ public class FindAllClients {
 		} finally {
 			Jdbc.close(connection);
 		}
+		return lista;
 	}
 }

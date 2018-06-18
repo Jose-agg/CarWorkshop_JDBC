@@ -18,7 +18,7 @@ public class DetailsClient {
 	private ClientesGateway clientesGateway;
 
 	public DetailsClient(String idCliente) {
-		// TODO Auto-generated constructor stub
+		this.StringIdCliente = idCliente;
 	}
 
 	private void prepareDB() throws SQLException {
@@ -29,10 +29,11 @@ public class DetailsClient {
 	}
 
 	public Map<String, Object> execute() throws BusinessException {
+		Map<String, Object> datosCliente = null;
 		try {
 			prepareDB();
 			comprobarIdCliente(StringIdCliente);
-
+			datosCliente = clientesGateway.getDetallesCliente(idCliente);
 			connection.commit();
 
 		} catch (SQLException e) {
@@ -44,6 +45,7 @@ public class DetailsClient {
 		} finally {
 			Jdbc.close(connection);
 		}
+		return datosCliente;
 	}
 
 	/**

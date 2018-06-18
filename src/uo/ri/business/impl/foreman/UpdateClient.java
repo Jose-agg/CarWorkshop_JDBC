@@ -10,7 +10,6 @@ import uo.ri.persistence.ClientesGateway;
 
 public class UpdateClient {
 
-	private String dni;
 	private String nombre;
 	private String apellidos;
 	private String zipcode;
@@ -22,9 +21,14 @@ public class UpdateClient {
 	private Connection connection;
 	private ClientesGateway clientesGateway;
 
-	public UpdateClient(String idCliente, String dni, String nombre,
-			String apellidos, String zipcode, String telefono, String email) {
-		// TODO Auto-generated constructor stub
+	public UpdateClient(String idCliente, String nombre, String apellidos,
+			String zipcode, String telefono, String email) {
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.zipcode = zipcode;
+		this.telefono = telefono;
+		this.email = email;
+		this.StringIdCliente = idCliente;
 	}
 
 	private void prepareDB() throws SQLException {
@@ -38,7 +42,8 @@ public class UpdateClient {
 		try {
 			prepareDB();
 			comprobarIdCliente(StringIdCliente);
-
+			clientesGateway.updateClient(idCliente, nombre, apellidos, zipcode,
+					telefono, email);
 			connection.commit();
 
 		} catch (SQLException e) {

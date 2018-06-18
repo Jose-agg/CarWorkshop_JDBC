@@ -13,7 +13,6 @@ public class UpdateClientAction implements Action {
 	public void execute() throws BusinessException {
 
 		String idCliente = Console.readString("ID del cliente");
-		String dni = Console.readString("DNI");
 		String nombre = Console.readString("Nombre");
 		String apellidos = Console.readString("Apellidos");
 		String zipcode = Console.readString("Codigo Postal");
@@ -21,7 +20,7 @@ public class UpdateClientAction implements Action {
 		String email = Console.readString("Email");
 
 		ForemanService foremanService = ServicesFactory.getForemanService();
-		foremanService.updateClient(idCliente, dni, nombre, apellidos, zipcode,
+		foremanService.updateClient(idCliente, nombre, apellidos, zipcode,
 				telefono, email);
 
 		Printer.printUpdateClient();

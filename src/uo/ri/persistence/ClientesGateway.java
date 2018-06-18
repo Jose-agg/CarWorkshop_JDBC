@@ -93,4 +93,34 @@ public interface ClientesGateway {
 	 * @param idCliente Identificador del cliente
 	 */
 	public void deleteClient(Long idCliente);
+
+	/**
+	 * Metodo que devuelve el id, nombre, apellidos y dni de todos los clientes
+	 * 
+	 * @return lista de datos de clientes
+	 */
+	public List<Map<String, Object>> findAllClients();
+
+	/**
+	 * Metodo que devuelve el nombre, los apellidos y el id de todos los 
+	 * usuarios recomendados por un cliente
+	 * 
+	 * @param idCliente Identificador del cliente a buscar
+	 * @return el mapa con los clientes que ha recomendado
+	 */
+	public Map<String, Object> findRecomendedClients(Long idCliente);
+
+	/**
+	 * Metodo que actualiza los datos basicos de un cliente. No se cambiará ni 
+	 * su dni ni su identificador
+	 * 
+	 * @param idCliente Identificador del cliente
+	 * @param nombre Nuevo nombre del cliente
+	 * @param apellidos Nuevo apellidos del cliente
+	 * @param zipcode Nuevo codigo postal del cliente
+	 * @param telefono Nuevo telefono del cliente
+	 * @param email Nuevo email del cliente
+	 */
+	public void updateClient(Long idCliente, String nombre, String apellidos,
+			String zipcode, String telefono, String email);
 }

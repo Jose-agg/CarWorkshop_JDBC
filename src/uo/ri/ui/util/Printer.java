@@ -159,13 +159,13 @@ public class Printer {
 	private static String getInfoMedioPago(Map<String, Object> medioPago) {
 		String tipo = (String) medioPago.get("dtype");
 		if (tipo.equals("TBonos"))
-			return String.format("Tipo: Bono --- Codigo: %s --- Disponible: %f",
+			return String.format(
+					"Tipo: Bono --- Codigo: %s --- Disponible: %.2f",
 					medioPago.get("codigo"), medioPago.get("disponible"));
 		else if (tipo.equals("TTarjetasCredito"))
 			return String.format(
-					"Tipo: Tarjeta de Crédito --- Numero: %s --- Tipo: %s --- Validez: %s]",
-					medioPago.get("numero"), medioPago.get("tipo"),
-					medioPago.get("validez"));
+					"Tipo: Tarjeta de Crédito --- Numero: %s --- Tipo: %s",
+					medioPago.get("numero"), medioPago.get("tipo"));
 		else
 			return "Tipo: Metálico";
 	}

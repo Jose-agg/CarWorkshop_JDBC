@@ -1,4 +1,4 @@
-# CarWorkshop #
+# Taller de coches JDBC #
 
 Este repositorio contiene el código fuente para la gestión de un taller de coches. Esta aplicación se centra en el correcto uso de patrones y metodologías para el acceso y tratamiento datos.
 

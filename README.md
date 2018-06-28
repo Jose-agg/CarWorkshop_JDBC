@@ -12,3 +12,7 @@ Para su desarrollo se han tomado las siguientes decisiones:
 ## Anotaciones ##
 - Es necesaria la librería que está dentro de **librerias > AlbUtil.zip** para que funcione la aplicación.
 - Son necesarios los .jar de hsqldb y ojdbc6, se encuentran en el archivo **librerias > bbdd.zip**.
+
+# Mapeo del sistema #
+
+![mapeo](https://github.com/MrKarrter/CarWorkshop_JDBC/blob/master/Diagrama%20Tablas.png)
